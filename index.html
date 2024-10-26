@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friends Photo Gallery</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>BOND AURA</h1>
+        <p>Select a friend to view their photos</p>
+        <select id="friend-select">
+            <option value="all">All Friends</option>
+            <option value="anek">Anek</option>
+            <option value="bharath">Bharath</option>
+            <option value="amal">Amal</option>
+            <option value="abhinav">Abhinav</option>
+            <option value="ravisanth">Ravisanth</option>
+            <option value="group">Group</option>
+        </select>
+    </header>
+
+    <section class="gallery">
+        <!-- Add more images here as needed with the format below -->
+        <div class="gallery-item" data-friend="anek">
+            <img src="images/Anek1.PNG" alt="Anek's Image">
+        </div>
+        <div class="gallery-item" data-friend="bharath">
+            <img src="images/Bharath1.jpg" alt="Bharath's Image">
+        </div>
+        <div class="gallery-item" data-friend="amal">
+            <img src="images/amal1.jpg" alt="Amal's Image">
+        </div>
+        <div class="gallery-item" data-friend="abhinav">
+            <img src="images/abhinav.jpg" alt="Abhinav's Image">
+        </div>
+        <div class="gallery-item" data-friend="bharath">
+            <img src="images/Bharath2.jpg" alt="Bharath's Image">
+        </div>
+        <div class="gallery-item" data-friend="bharath">
+            <img src="images/Bharat3.jpg" alt="Bharath's Image">
+        </div>
+        <div class="gallery-item" data-friend="ravisanth">
+            <img src="images/ravi1.jpg" alt="ravisanth's Image">
+        </div>
+        <div class="gallery-item" data-friend="group">
+            <img src="images/grp1.jpg" alt="group Image">
+        </div>
+        <div class="gallery-item" data-friend="group">
+            <img src="images/grp2.jpg" alt="group Image">
+        </div>
+        <div class="gallery-item" data-friend="group">
+            <img src="images/grp3.jpg" alt="group Image">
+        </div>
+        <div class="gallery-item" data-friend="group">
+            <img src="images/grp4.jpg" alt="group Image">
+        </div>
+        <div class="gallery-item" data-friend="group">
+            <img src="images/grp5.jpg" alt="group Image">
+        </div>
+        <!-- Repeat gallery-item blocks for each friend -->
+    </section>
+
+    <script>
+        const select = document.getElementById('friend-select');
+        const images = document.querySelectorAll('.gallery-item');
+
+        // Filter images based on selected friend
+        select.addEventListener('change', () => {
+            const selectedFriend = select.value;
+            images.forEach(image => {
+                if (selectedFriend === 'all' || image.getAttribute('data-friend') === selectedFriend) {
+                    image.style.display = 'block';
+                } else {
+                    image.style.display = 'none';
+                }
+            });
+        });
+
+        // Add scroll animations
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                entry.target.classList.toggle("in-view", entry.isIntersecting);
+            });
+        }, { threshold: 0.1 });
+
+        images.forEach(image => {
+            observer.observe(image);
+        });
+
+        // Expand image on click
+        images.forEach(image => {
+            image.addEventListener('click', () => {
+                image.classList.toggle('expanded');
+            });
+        });
+    </script>
+</body>
+</html>
